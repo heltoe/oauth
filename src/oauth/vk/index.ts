@@ -23,17 +23,11 @@ class Vk {
     this.token = ''
     this.userId = ''
   }
-  public authorizationServer(): string {
-    return `${this.baseUrlAuthorize}scope=email,friends&client_id=${this.client_id}&display=${this.display}&redirect_uri=${this.redirectUri}/authorization&response_type=code&v=5.103&revoke=1`
-  }
-  public authorizationClient(): string {
-    return `${this.baseUrlAuthorize}client_id=${this.client_id}&display=${this.display}&redirect_uri=${this.redirectUri}/authorization&response_type=token&v=5.103`
+  public authorization(): string {
+    return `${this.baseUrlAuthorize}scope=email&client_id=${this.client_id}&display=${this.display}&redirect_uri=${this.redirectUri}/authorization&response_type=code&v=5.103&revoke=1`
   }
   public getToken(): string {
     return `${this.baseUriToken}client_id=${this.client_id}&client_secret=${this.client_secret}&redirect_uri=${this.redirectUri}/authorization&code=${this.code}`
-  }
-  public getAccountInfo(): string {
-    return `${this.baseUriMethods}account.getProfileInfo?access_token=${this.token}&v=5.103`
   }
   public getUser(): string {
     return `${this.baseUriMethods}users.get?user_id=${this.userId}&fields=photo_50,photo_100,photo_200_orig,photo_200,photo_400_orig,photo_max,photo_max_orig,city,sex,bdate,country&access_token=${this.token}&v=5.52`
@@ -41,9 +35,6 @@ class Vk {
   // 
   public setCode(code: string): void {
     this.code = code
-  }
-  public getCode(): string {
-    return this.code
   }
   public setToken(token: string): void {
     this.token = token
@@ -53,7 +44,6 @@ class Vk {
   }
 }
 
-// const redirectUri: string = 'https://oauth.vk.com/blank.html'
 const redirectUri: string = 'http://localhost:3000'
 const vk: Vk = new Vk(settings.oauth.vk.idApp, settings.oauth.vk.secretKey, redirectUri, 'page')
 export default vk
