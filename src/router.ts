@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import vk from './controllers/vk'
-import Vk from './oauth/vk/index'
+import { pages } from './controllers/pagesRouter'
+import Vk from './oauth/vk/core'
 
 class Routes {
   public router: Router
@@ -9,8 +10,11 @@ class Routes {
     this.routes()
   }
   private routes() {
-    this.router.get('/', vk.getCode)
+    // 
+    this.router.get('/server-vk', vk.getCode)
     this.router.get('/authorization', vk.redirectToToken)
+    // pages
+    this.router.get('*', pages.checkPages)
   }
 }
 
